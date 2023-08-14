@@ -2,21 +2,21 @@
 
 namespace Database\Seeders;
 
+use App\Models\Ingredient;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class IngredientSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call([
-            IngredientSeeder::class,
-            CocktailSeeder::class
-        ]);
+        Ingredient::factory()
+            ->count(5)
+            ->create();
     }
 }
