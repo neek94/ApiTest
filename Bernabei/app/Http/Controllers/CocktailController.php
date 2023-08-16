@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCocktailRequest;
 use App\Http\Requests\UpdateCocktailRequest;
 use App\Models\Cocktail;
+use Exception;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Support\Facades\Http;
+use PhpParser\Node\Expr\Cast\String_;
 
 class CocktailController extends Controller
 {
@@ -82,5 +86,17 @@ class CocktailController extends Controller
     public function destroy(Cocktail $cocktail)
     {
         //
+    }
+
+    public function fetchCocktails (String $toSearch){
+        try{
+            $responseData = Http::get('www.thecocktaildb.com/api/json/v1/1/search.php?s='.$toSearch);
+            return $responseData;
+        } catch (Exception $e) {
+            print(json_encode($e->getMessage()));
+            return json_encode($e->getMessage());
+
+        }
+        
     }
 }
